@@ -49,17 +49,25 @@
             {
                 Console.WriteLine("Please put in a valid number");
             }
+            bool hasDecimal = int.TryParse(Convert.ToString(maxTwo), out int temp);
             Console.WriteLine("Please state how many decimal points should be rounded");
-            while (!int.TryParse(Console.ReadLine().Trim(), out int roundTo))
+            int roundTo;
+            while (!int.TryParse(Console.ReadLine().Trim(), out roundTo))
             {
                 Console.WriteLine("Please put in a valid number");
             }
             Console.Write("You're random decimal values are: ");
             for (int i = 0; i <3; i++)
             {
-                int tempRand = rand.Next((int)Math.Truncate(minTwo), ((int)Math.Truncate(maxTwo)));
+                int tempRand;
+                if (hasDecimal){
+                    tempRand = rand.Next((int)Math.Truncate(minTwo), ((int)Math.Truncate(maxTwo)+1));
+                }
+                else{
+                    tempRand = rand.Next((int)Math.Truncate(minTwo), ((int)Math.Truncate(maxTwo)));
+                }
                 double tempRandTwo = tempRand + rand.NextDouble();
-                Console.Write(Math.Round(tempRandTwo,2) + " ");
+                Console.Write(Math.Round(tempRandTwo,roundTo) + " ");
             }
             
 
